@@ -7,9 +7,14 @@ client = genai.Client(
 )
 
 def ask_gemini(prompt: str) -> str:
-    response = client.models.generate_content(
-        model="gemini-3.5-flash",
-        contents=prompt
-    )
+    try:
+        response = client.models.generate_content(
+            model="gemini-3.5-flash",
+            contents=prompt
+        )
 
-    return response.text
+        return response.text
+
+    except Exception as e:
+        print(f"Gemini Error: {e}")
+        return "Sorry, I'm unable to process your request right now."
